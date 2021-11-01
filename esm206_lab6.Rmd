@@ -54,3 +54,60 @@ mwu
 The P-value of .28 means that if these samples come from populations with the same ranks of values (or medians), then there is a 28% chance that other samples will have ranks of values (or medians) that are at least this different. 
 
 Retain the null hypothesis >> There is no significant difference in ranks (often you'll see medians) between group 1 and group 2. 
+
+Median scores for group 1 (M=14) and group 2(M=12) did not differ significantly (Mann-Whitney U test: U(df) = 86, p =.28)
+
+### Linear Regression
+
+Simple linear regression (single dependent variable, a single independent variable)
+
+```{r,} 
+# Make an exploratory plot of penguin body mass (y-axis) versus flipper length (x-axis). include = FALSE to leave out of final doc 
+ggplot(data=penguins, aes(x= flipper_length_mm, y = body_mass_g)) + 
+geom_point() + 
+  geom_smooth(method = "lm")
+
+```
+
+Find a linear regression model using ordinary least squares, describing the relationship between flipper length and body mass for these penguins. 
+
+3 pieces:
+
+- What type of model? 
+- What is the relationship to model (dependent variable as a function of independent variable(s))? >> DV ~ IV
+- Where is the data that is used to create this model?
+
+```{r}
+penguin_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
+
+penguin_lm
+```
+
+### Brook package returns model outputs as tidy data frames
+
+```{r}
+penguin_lm_tidy <- broom::tidy(penguin_lm)
+
+penguin_lm_tidy
+
+broom::glance(penguin_lm) # We will talk more about these on Wednesday, 11/3 (in two days)
+```
+
+How can I actually include my model equation in a report? 
+
+```{r}
+extract_eq(penguin_lm, use_coefs = TRUE)
+```
+
+```{r}
+plot(penguin_lm)
+```
+
+
+
+
+
+
+
+
+
