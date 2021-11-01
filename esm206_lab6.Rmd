@@ -23,7 +23,34 @@ set.seed(1414)
 gp_1 <- sample.int(20, size = 15, replace = TRUE)
 
 set.seed(1424) 
-gp.2 <- sample.int(30, size = 15, replace = TRUE)
+gp_2 <- sample.int(30, size = 15, replace = TRUE)
 
 ```
 
+```{r}
+hist(gp_1)
+hist(gp_2)
+```
+
+Try a t-test
+```{r}
+t.test(gp_1,gp_2)
+```
+
+This P-value means that if these samples come from populations with the same mean, then there is a 19.8% chance that other samples will have means that are this or more different. 
+"If these samples were drawn from populations with the same mena, the propbability of taking two random samples with means *at least as different* as the sample means we found by random chance (taking into account spread, n) is 19.8%. 
+Retain (fail to reject) the null hypothesis >> There is no significant difference in means between group 1 and group 2. 
+
+DON'T say accept null hypothesis. 
+
+Now let's compare this t-test outcome to a rank-based test. 
+
+### Mann Whitney U unpaired rank-based test
+```{r}
+mwu <- wilcox.test(gp_1,gp_2)
+
+mwu
+```
+The P-value of .28 means that if these samples come from populations with the same ranks of values (or medians), then there is a 28% chance that other samples will have ranks of values (or medians) that are at least this different. 
+
+Retain the null hypothesis >> There is no significant difference in ranks (often you'll see medians) between group 1 and group 2. 
